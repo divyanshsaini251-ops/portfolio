@@ -33,3 +33,6 @@ Open `js/main.js`. The skills (`SK`), projects (`PJ`) and internships (`EX`) arr
 ## Notes
 - Headings use Google Fonts (Bungee, Rajdhani) and need an internet connection; a fallback font is used offline.
 - WhatsApp links assume WhatsApp is active on +91 6377808960.
+
+## Contact form (EmailJS)
+The Chat page sends messages to your inbox through EmailJS. Put your Public Key, Service ID and Template ID in `js/config.js`. Paste `emailjs-template.html` into your EmailJS template (Code Editor). Until the keys are set, the form shows a message and the "Open mail app" fallback still works.

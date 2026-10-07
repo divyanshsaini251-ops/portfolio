@@ -26,11 +26,27 @@ function toast(t){const e=$('#ts');e.textContent=t;e.classList.add('on');clearTi
 /* chat */
 const EM='divyanshsaini251@gmail.com',QM=['Hi Divyansh! I saw your portfolio and loved it.','We have an open role and would like to talk.','Can we schedule an interview?','Good shot! Let us connect.'];
 $('#qc').innerHTML=QM.map(m=>`<button type="button" class="ch q">${m}</button>`).join('');
-function sync(){const n=$('#cn').value.trim(),m=($('#cm').value.trim()||QM[0])+(n?'\n\n'+n:'');
- $('#se').href='mailto:'+EM+'?subject='+encodeURIComponent('Portfolio message'+(n?' from '+n:''))+'&body='+encodeURIComponent(m);
+function msgText(){const n=$('#cn').value.trim();return ($('#cm').value.trim()||QM[0])+(n?'\n\n'+n:'')}
+function sync(){const n=$('#cn').value.trim(),m=msgText();
+ $('#ml').href='mailto:'+EM+'?subject='+encodeURIComponent('Portfolio message'+(n?' from '+n:''))+'&body='+encodeURIComponent(m);
  $('#sw').href='https://wa.me/916377808960?text='+encodeURIComponent(m)}
 $('#qc').onclick=e=>{const b=e.target.closest('.q');if(b){$('#cm').value=b.textContent;sync()}};
-$('#cn').oninput=$('#cm').oninput=sync;sync();
+['#cn','#cm'].forEach(s=>$(s).oninput=sync);sync();
+const EJ=window.EMAILJS_CONFIG||{};let lastSend=0;
+function fs(t,c){const e=$('#fs');e.className='';void e.offsetWidth;e.textContent=t;e.className=c||''}
+$('#cf').addEventListener('submit',async e=>{e.preventDefault();
+ const name=$('#cn').value.trim(),email=$('#ce').value.trim(),msg=$('#cm').value.trim(),btn=$('#se');
+ if($('#hp').value)return;
+ if(name.length<2)return fs('Please enter your name.','er');
+ if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return fs('Please enter a valid email so I can reply.','er');
+ if(msg.length<10)return fs('Your message is a bit short. Add a few more words.','er');
+ if(Date.now()-lastSend<(EJ.cooldownMs||30000))return fs('Please wait a few seconds before sending another message.','er');
+ if(!window.emailjs||!EJ.publicKey||EJ.publicKey.startsWith('YOUR_'))return fs('The email service is not set up yet. Please use "Open mail app" below.','er');
+ btn.disabled=true;btn.textContent='Sending...';fs('Sending your message','go');
+ try{await emailjs.send(EJ.serviceId,EJ.templateId,{from_name:name,from_email:email,topic:$('#ct').value,message:msg,time:new Date().toLocaleString('en-IN',{dateStyle:'medium',timeStyle:'short'})},{publicKey:EJ.publicKey});
+  lastSend=Date.now();fs('Message sent! I will reply to '+email+' soon.','ok');toast('Shot pocketed! Message sent');$('#cm').value='';sync()}
+ catch(x){fs('Could not send right now. Please use "Open mail app" or WhatsApp.','er');console.error(x)}
+ btn.disabled=false;btn.textContent='Send message'});
 document.addEventListener('click',e=>{const c=e.target.closest('[data-cp]');if(!c)return;const v=c.dataset.cp,f=()=>toast('Copy blocked, select the text instead');try{navigator.clipboard.writeText(v).then(()=>toast('Copied '+v),f)}catch(x){f()}});
 
 /* sound */

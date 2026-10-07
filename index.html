@@ -37,11 +37,16 @@
 <section class="pg" id="tables"><h2>Pick a table: projects</h2><div class="gr" id="pj"></div></section>
 <section class="pg" id="career"><h2>Career levels</h2><div id="ex"></div><h2>Achievements</h2><div class="gr" id="ed"></div></section>
 <section class="pg" id="chat"><h2>Chat with me</h2>
-<div class="cd"><div class="bub"><b>Divyansh</b>Hey! Pick a quick message or write your own. I reply by email or WhatsApp.</div>
+<form class="cd" id="cf" novalidate><div class="bub"><b>Divyansh</b>Hey! Pick a quick message or write your own. It lands straight in my inbox.</div>
 <div id="qc"></div>
-<label for="cn">Your name</label><input id="cn" autocomplete="name" placeholder="Your name">
-<label for="cm">Message</label><textarea id="cm" rows="4" placeholder="Type your message"></textarea>
-<a class="btn" id="se" href="mailto:divyanshsaini251@gmail.com">Send by email</a><a class="btn alt" id="sw" href="https://wa.me/916377808960" target="_blank" rel="noopener">Send on WhatsApp</a></div>
+<label for="cn">Your name</label><input id="cn" name="from_name" autocomplete="name" maxlength="80" placeholder="Your name">
+<label for="ce">Your email</label><input id="ce" name="from_email" type="email" autocomplete="email" maxlength="120" placeholder="you@company.com">
+<label for="ct">Topic</label><select id="ct" name="topic"><option>Job opportunity</option><option>Interview request</option><option>Freelance project</option><option>Just saying hi</option></select>
+<label for="cm">Message</label><textarea id="cm" name="message" rows="5" maxlength="2000" placeholder="Type your message"></textarea>
+<input id="hp" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+<button class="btn" id="se" type="submit">Send message</button><a class="btn alt" id="sw" href="https://wa.me/916377808960" target="_blank" rel="noopener">Send on WhatsApp</a>
+<p id="fs" role="status" aria-live="polite"></p>
+<p class="fb">Prefer your own mail app? <a id="ml" href="mailto:divyanshsaini251@gmail.com">Open mail app</a></p></form>
 <div class="gr" style="margin-top:16px">
 <div class="cd"><h3>Email</h3><p><a href="mailto:divyanshsaini251@gmail.com">divyanshsaini251@gmail.com</a></p><a class="btn sm" href="mailto:divyanshsaini251@gmail.com">Email me</a><button class="btn sm alt" type="button" data-cp="divyanshsaini251@gmail.com">Copy</button></div>
 <div class="cd"><h3>Phone</h3><p><a href="tel:+916377808960">+91-6377808960</a></p><a class="btn sm" href="tel:+916377808960">Call</a><a class="btn sm alt" href="sms:+916377808960">Text</a><a class="btn sm alt" href="https://wa.me/916377808960" target="_blank" rel="noopener">WhatsApp</a><button class="btn sm alt" type="button" data-cp="+91-6377808960">Copy</button></div>
@@ -53,6 +58,8 @@
 <a href="#home"><i>🏠</i>Lobby</a><a href="#play"><i>🎱</i>Play</a><a href="#skills"><i>🎒</i>Locker</a><a href="#tables"><i>🏆</i>Tables</a><a href="#career"><i>⭐</i>Levels</a><a href="#chat"><i>💬</i>Chat</a>
 </nav>
 
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4.4.1/dist/email.min.js"></script>
+<script src="js/config.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>
